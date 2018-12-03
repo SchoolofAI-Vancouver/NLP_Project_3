@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import numpy as np
-np.random.seed(42)
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
@@ -18,29 +17,14 @@ warnings.filterwarnings('ignore')
 
 import gc
 import os
+import pickle
 os.environ['OMP_NUM_THREADS'] = '4'
-
-
-EMBEDDING_FILE = '../assets/embedding/fasttext-crawl-300d-2m/crawl-300d-2M.vec'
-train = pd.read_csv('../assets/data/train.csv')
-
-classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 
 
 def convert_binary_toxic(data, classes):
     target = data[classes].values != np.zeros((len(data), 6))
     binary = target.any(axis=1)
     return binary
-
-
-target = convert_binary_toxic(train, classes)
-features = train["comment_text"].fillna("# #").values
-del train
-gc.collect()
-
-MAX_FEATURES = 30000
-MAXLEN = 100
-EMBED_SIZE = 300
 
 
 class Preprocess(object):
@@ -59,11 +43,6 @@ class Preprocess(object):
         return features
 
 
-pre = Preprocess(max_features=MAX_FEATURES, maxlen=MAXLEN)
-pre.fit_texts(list(features))
-features = pre.transform_texts(features)
-
-
 def get_embeddings(embed_file, word_index, max_features, embed_size):
     def get_coefs(word, *arr): return word, np.asarray(arr, dtype='float32')
     embeddings_pretrained = dict(get_coefs(*o.rstrip().rsplit(' ')) for o in open(embed_file, encoding="utf8", errors='ignore'))
@@ -78,10 +57,6 @@ def get_embeddings(embed_file, word_index, max_features, embed_size):
             embedding_matrix[i] = embedding_vector
     
     return embedding_matrix
-
-
-word_index = pre.tokenizer.word_index
-embedding_matrix = get_embeddings(EMBEDDING_FILE, word_index, MAX_FEATURES, EMBED_SIZE)
 
 
 class RocAucEvaluation(Callback):
@@ -119,10 +94,35 @@ def get_model(maxlen, max_features, embed_size, embedding_matrix):
 
 if __name__ == "__main__":
 
-    model = get_model()
+    EMBEDDING_FILE = '../assets/embedding/fasttext-crawl-300d-2m/crawl-300d-2M.vec'
+    classes = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 
+    MAX_FEATURES = 30000
+    MAXLEN = 100
+    EMBED_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 2
+    np.random.seed(42)
+
+    print("Load data..")
+    train = pd.read_csv('../assets/data/train.csv')
+    
+    features = train["comment_text"].fillna("# #").values
+    target = convert_binary_toxic(train, classes)
+    del train
+    gc.collect()
+    
+    print("Transform data..")
+    pre = Preprocess(max_features=MAX_FEATURES, maxlen=MAXLEN)
+    pre.fit_texts(list(features))
+    features = pre.transform_texts(features)
+
+    print("Load embedding..")
+    word_index = pre.tokenizer.word_index
+    embedding_matrix = get_embeddings(EMBEDDING_FILE, word_index, MAX_FEATURES, EMBED_SIZE)
+
+    print("Train model..")
+    model = get_model()
 
     X_train, X_val, y_train, y_val = train_test_split(features, target, train_size=0.95, random_state=233)
     RocAuc = RocAucEvaluation(validation_data=(X_val, y_val), interval=1)
@@ -131,3 +131,5 @@ if __name__ == "__main__":
                     callbacks=[RocAuc], verbose=1)
 
     model.save('../assets/model/model.h5')
+    with open('tokenizer.pkl', 'wb') as tokenizer:
+        pickle.dump(pre, tokenizer)
