@@ -137,6 +137,7 @@ if __name__ == "__main__":
     preprocessor = Preprocess(max_features=MAX_FEATURES, maxlen=MAXLEN)
     preprocessor.fit_texts(list(features))
     features = preprocessor.transform_texts(features)
+    word_index = preprocessor.tokenizer.word_index
 
     PRERPOCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
     logger.info(f"Saving the text transformer: {PRERPOCESSOR_FILE}")
@@ -146,7 +147,6 @@ if __name__ == "__main__":
     gc.collect()
 
     logger.info(f"Loading embedding vectors: {EMBEDDING_FILE}")
-    word_index = preprocessor.tokenizer.word_index
     embedding_matrix = get_embeddings(EMBEDDING_FILE, word_index, MAX_FEATURES, EMBED_SIZE)
 
     logger.info(f"Model training, train size: {TRAIN_SIZE}")
