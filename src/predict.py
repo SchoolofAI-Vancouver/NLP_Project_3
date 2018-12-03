@@ -35,5 +35,11 @@ class PredictionPipeline(object):
 if __name__ == "__main__":
     ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, MODEL_FILE))
 
-    text = ['you idiot']
-    print(ppl.predict(text))
+    sample_text = ['Corgi is stupid',
+                   'good boy',
+                   'School of AI is awesome',
+                   'F**K']
+
+    for text, toxicity in zip(sample_text, ppl.predict(sample_text)):
+        print(f"{text}".ljust(25) + f"- Toxicity: {toxicity}")
+
