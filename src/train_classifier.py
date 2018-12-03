@@ -113,12 +113,12 @@ if __name__ == "__main__":
     gc.collect()
     
     print("Transform data..")
-    pre = Preprocess(max_features=MAX_FEATURES, maxlen=MAXLEN)
-    pre.fit_texts(list(features))
-    features = pre.transform_texts(features)
+    preprocessor = Preprocess(max_features=MAX_FEATURES, maxlen=MAXLEN)
+    preprocessor.fit_texts(list(features))
+    features = preprocessor.transform_texts(features)
 
     print("Load embedding..")
-    word_index = pre.tokenizer.word_index
+    word_index = preprocessor.tokenizer.word_index
     embedding_matrix = get_embeddings(EMBEDDING_FILE, word_index, MAX_FEATURES, EMBED_SIZE)
 
     print("Train model..")
@@ -131,5 +131,5 @@ if __name__ == "__main__":
                     callbacks=[RocAuc], verbose=1)
 
     model.save('../assets/model/model.h5')
-    with open('tokenizer.pkl', 'wb') as tokenizer:
-        pickle.dump(pre, tokenizer)
+    with open('preprocessor.pkl', 'wb') as file:
+        pickle.dump(preprocessor, file)
