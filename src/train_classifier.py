@@ -1,4 +1,9 @@
 #! /usr/bin/env python
+# author: Xinbin Huang - Vancouver School of AI
+# date: Dec. 3, 2018
+# Usage:
+#    python train_classifier.py
+
 
 import gc
 import os
@@ -20,8 +25,23 @@ from keras.callbacks import TensorBoard
 from utils import get_logger, get_root
 
 
+np.random.seed(42)
 warnings.filterwarnings('ignore')
 os.environ['OMP_NUM_THREADS'] = '4'
+
+DIR_ROOT = get_root()
+DIR_ASSETS = os.path.join(DIR_ROOT, 'assets')
+MODEL_PATH = os.path.join(DIR_ASSETS, 'model')
+LOG_PATH = os.path.join(DIR_ASSETS, 'tb_logs')
+EMBEDDING_FILE = os.path.join(DIR_ASSETS, 'embedding', 'fasttext-crawl-300d-2m', 'crawl-300d-2M.vec')
+DATA_FILE = os.path.join(DIR_ASSETS, 'data', 'train.csv')
+
+MAX_FEATURES = 30000
+MAXLEN = 100
+EMBED_SIZE = 300
+TRAIN_SIZE = 0.95
+BATCH_SIZE = 32
+EPOCHS = 2
 
 
 def convert_binary_toxic(data, classes):
@@ -101,21 +121,6 @@ def get_model(maxlen, max_features, embed_size, embedding_matrix):
 
 
 if __name__ == "__main__":
-
-    DIR_ROOT = get_root()
-    DIR_ASSETS = os.path.join(DIR_ROOT, 'assets')
-    MODEL_PATH = os.path.join(DIR_ASSETS, 'model')
-    LOG_PATH = os.path.join(DIR_ASSETS, 'tb_logs')
-    EMBEDDING_FILE = os.path.join(DIR_ASSETS, 'embedding', 'fasttext-crawl-300d-2m', 'crawl-300d-2M.vec')
-    DATA_FILE = os.path.join(DIR_ASSETS, 'data', 'train.csv')
-
-    MAX_FEATURES = 30000
-    MAXLEN = 100
-    EMBED_SIZE = 300
-    TRAIN_SIZE = 0.95
-    BATCH_SIZE = 32
-    EPOCHS = 2
-    np.random.seed(42)
 
     logger = get_logger()
 
