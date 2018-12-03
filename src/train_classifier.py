@@ -87,7 +87,19 @@ def get_embeddings(embed_file, word_index, max_features, embed_size):
 
 class RocAucEvaluation(TensorBoard):
 
-    def __init__(self, validation_data=(), interval=1):
+    def __init__(self, log_dir='./logs',
+                 histogram_freq=0,
+                 batch_size=32,
+                 write_graph=True,
+                 write_grads=False,
+                 write_images=False,
+                 embeddings_freq=0,
+                 embeddings_layer_names=None,
+                 embeddings_metadata=None,
+                 embeddings_data=None,
+                 update_freq='epoch',
+                 validation_data=(),
+                 interval=1):
         super().__init__()
 
         self.X_val, self.y_val = validation_data
