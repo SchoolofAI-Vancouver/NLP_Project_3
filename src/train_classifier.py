@@ -100,7 +100,7 @@ class RocAucEvaluation(TensorBoard):
                  update_freq='epoch',
                  validation_data=(),
                  interval=1):
-        super().__init__()
+        super().__init__(log_dir=log_dir, batch_size=batch_size)
 
         self.X_val, self.y_val = validation_data
         self.interval = interval
