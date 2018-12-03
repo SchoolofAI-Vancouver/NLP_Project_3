@@ -10,7 +10,7 @@ def get_root():
 
 
 def get_logger(level=logging.INFO):
-
+    """A simple logger for tracking training process"""
     logger = logging.getLogger(__name__)
     logger.setLevel(level)
 
