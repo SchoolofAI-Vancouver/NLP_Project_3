@@ -12,12 +12,20 @@ https://stackoverflow.com/questions/51127344/tensor-is-not-an-element-of-this-gr
 
 # import models
 import config
-import tensorflow as tf
+import os
 import re
-
+import sys
+import tensorflow as tf
 
 from flask import Flask, jsonify, request, render_template, flash
 from wtforms import Form, TextField, TextAreaField, validators, SubmitField
+
+# add directory
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+
+print(current_dir, parent_dir)
+sys.path.append(parent_dir)
 
 # custom models
 from ml_model.predict import *
