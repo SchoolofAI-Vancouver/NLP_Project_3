@@ -179,6 +179,6 @@ if __name__ == "__main__":
         file.write(architecture_json)
 
     WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
-    logger.info(f"Saving the architecture: {WEIGHTS_FILE}")
+    logger.info(f"Saving the weights: {WEIGHTS_FILE}")
 
     model.save_weights(WEIGHTS_FILE)
