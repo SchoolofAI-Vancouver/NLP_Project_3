@@ -1,17 +1,48 @@
 '''
-ML NLP Web App
+NLP Web App
 Judge Comment Toxicity
+
+Author: Johannes Giorgis, Guru Shiva
+Date: Dec. 3, 2018
+
+Had issues integrating Keras Model with Flask. Found following solutions helpful:
+https://github.com/keras-team/keras/issues/2397
+https://stackoverflow.com/questions/51127344/tensor-is-not-an-element-of-this-graph-deploying-keras-model
 '''
+
+# import models
+import config
+import os
+import re
+import sys
+import tensorflow as tf
 
 from flask import Flask, jsonify, request, render_template, flash
 from wtforms import Form, TextField, TextAreaField, validators, SubmitField
-import config
-import re
+
+# add directory
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+
+print(current_dir, parent_dir)
+sys.path.append(parent_dir)
+
+# custom models
+from ml_model.predict import *
+from ml_model.utils import get_root, load_pipeline
+
+
+# load model
+ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE,
+                                            ARCHITECTURE_FILE,
+                                            WEIGHTS_FILE))
+
+global graph
+graph = tf.get_default_graph()
 
 app = Flask(__name__)
 
 # App config
-DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
@@ -83,13 +114,20 @@ def hello():
 		if form.validate():
 			# Save the comment here.
 			#flash('Hello ' + name + ' Comment: ' + comment)
-			toxic_score = check_comment_toxicity(comment)
+			#toxic_score = check_comment_toxicity(comment)
+
+			# input needs to be a list
+			with graph.as_default():
+				toxic_score = ppl.predict([comment])
+
+			# Toxic score is returned as a list within a list
+			toxic_score = toxic_score[0][0]
 
 			toxicity_message = set_toxicity_message(toxic_score)
 			print(f"Toxic Score:{toxic_score}")
 			print(f"Toxic message:{toxicity_message}")
 
-			flash(f"{toxicity_message} Toxicity Score: {toxic_score:0.2f}. " +\
+			flash(f"{toxicity_message} Toxicity Score: {toxic_score:0.4f}. " +\
 				f"Your comment was: {comment}")
 
 		else:
@@ -99,4 +137,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, threaded=False)
