@@ -4,23 +4,29 @@
 
 
 # modules
-import os, sys
+import os#, sys
 from datetime import datetime
 
 # add current directory to sys.path
 # needed for Flask app to work
-current_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(current_dir)
+#current_dir = os.path.dirname(os.path.realpath(__file__))
+#sys.path.append(current_dir)
 
 # custom modules
 from utils import get_root, load_pipeline, get_logger
 
 
-ROOT = get_root()
-MODEL_PATH = os.path.join(ROOT, 'assets', 'model')
+ROOT_DIR = get_root()
+MODEL_PATH = os.path.join(ROOT_DIR, 'assets', 'model')
 PREPROCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
 ARCHITECTURE_FILE = os.path.join(MODEL_PATH, 'gru_architecture.json')
 WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
+
+print(f"Root Directory: {ROOT_DIR}")
+print(f"Model Path: {MODEL_PATH}")
+print(f"Preprocess File: {PREPROCESSOR_FILE}")
+print(f"Architecture File: {ARCHITECTURE_FILE}")
+print(f"Weights File: {WEIGHTS_FILE}")
 
 
 class PredictionPipeline(object):
@@ -41,8 +47,7 @@ if __name__ == "__main__":
     logger.info("Script Started")
     logger.info("Loading model...")
     ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, 
-                                            ARCHITECTURE_FILE, 
-
+                                            ARCHITECTURE_FILE,
                                             WEIGHTS_FILE))
     logger.info("Completed loading model!")
 
