@@ -2,8 +2,18 @@
 # author: Xinbin Huang - Vancouver School of AI
 # date: Dec. 3, 2018
 
-import os
-from utils import get_root, load_pipeline
+
+# modules
+import os, sys
+from datetime import datetime
+
+# add current directory to sys.path
+# needed for Flask app to work
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(dir_path)
+
+# custom modules
+from utils import get_root, load_pipeline, get_logger
 
 
 ROOT = get_root()
@@ -26,9 +36,14 @@ class PredictionPipeline(object):
 
 
 if __name__ == "__main__":
+
+    logger = get_logger()
+    logger.info("Script Started")
+    logger.info("Loading model...")
     ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, 
                                             ARCHITECTURE_FILE, 
                                             WEIGHTS_FILE))
+    logger.info("Completed loading model!")
 
     sample_text = ['Corgi is stupid',
                    'good boy',
@@ -37,3 +52,5 @@ if __name__ == "__main__":
 
     for text, toxicity in zip(sample_text, ppl.predict(sample_text)):
         print(f"{text}".ljust(25) + f"- Toxicity: {toxicity}")
+
+    logger.info("Script Completed")
