@@ -91,7 +91,7 @@ To submit, post your submission's repository link on the `# code_challenge` Slac
 
 [Peter Lin](https://github.com/peter0083)
 
-[Johannes G](https://github.com/johannesgiorgis)
+[Johannes Giorgis](https://github.com/johannesgiorgis)
 
-
+[Guru Shiva](https://github.com/gurushiva)
 
