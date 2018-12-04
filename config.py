@@ -14,4 +14,9 @@ toxic_words = [
 	'dickhead',
 	'jackass',
 	'ass',
+	'suck',
+	'sucking',
+	'idiotic',
+	'moronic',
+	'fuck',
 ]
