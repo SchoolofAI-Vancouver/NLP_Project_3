@@ -106,7 +106,7 @@ class RocAucEvaluation(TensorBoard):
         self.interval = interval
 
     def on_epoch_end(self, epoch, logs=None):
-        super().on_epoch_end()
+        super().on_epoch_end(epoch, logs)
 
         if epoch % self.interval == 0:
             y_pred = self.model.predict(self.X_val, verbose=0)
