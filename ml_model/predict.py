@@ -26,8 +26,8 @@ class PredictionPipeline(object):
 
 
 if __name__ == "__main__":
-    ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, 
-                                            ARCHITECTURE_FILE, 
+    ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE,
+                                            ARCHITECTURE_FILE,
                                             WEIGHTS_FILE))
 
     sample_text = ['Corgi is stupid',
