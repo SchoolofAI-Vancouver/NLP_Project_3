@@ -22,7 +22,7 @@ For those who want to walk though the whole process from training to deployment,
 
 To download the data, run:
 ```python
-python src/download.py
+python ml_model/download.py
 ```
 This will download the training data and pre-trained embedding file in :
   - ./assets/data/train.csv
@@ -30,7 +30,7 @@ This will download the training data and pre-trained embedding file in :
   
 To train the model, run:
 ```python
-python src/train_classifier.py
+python ml_model/train_classifier.py
 ```
 This will train a pooled GRU with FastText embedding. The text preprocessor and the model will be seriallized and stored in:
   - ./assets/model/preprocessor.pkl
@@ -40,7 +40,7 @@ This will train a pooled GRU with FastText embedding. The text preprocessor and 
 ### Prediction
 To get a feeling of doing predictions, run:
 ```python
-python src/predict.py
+python ml_model/predict.py
 
 # output:
 # Corgi is stupid          - Toxicity: [0.99293655]
