@@ -13,6 +13,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(current_dir)
 
 # custom modules
+from train_classifier import Preprocess  # need to import the Preprocess class as reference for unpickling
 from utils import get_root, load_pipeline, get_logger
 
 
@@ -21,12 +22,6 @@ MODEL_PATH = os.path.join(ROOT_DIR, 'assets', 'model')
 PREPROCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
 ARCHITECTURE_FILE = os.path.join(MODEL_PATH, 'gru_architecture.json')
 WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
-
-print(f"Root Directory: {ROOT_DIR}")
-print(f"Model Path: {MODEL_PATH}")
-print(f"Preprocessor file: {PREPROCESSOR_FILE}")
-print(f"Architecture File: {ARCHITECTURE_FILE}")
-print(f"Weights File: {WEIGHTS_FILE}")
 
 
 class PredictionPipeline(object):
@@ -39,7 +34,6 @@ class PredictionPipeline(object):
         features = self.preprocessor.transform_texts(text)
         pred = self.model.predict(features)
         return pred
-
 
 
 if __name__ == "__main__":
