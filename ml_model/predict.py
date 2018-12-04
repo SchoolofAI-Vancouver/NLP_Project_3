@@ -7,7 +7,6 @@
 import os
 import sys
 
-
 # add current directory to sys.path
 # needed for Flask app to work
 #current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -25,7 +24,7 @@ WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
 
 print(f"Root Directory: {ROOT_DIR}")
 print(f"Model Path: {MODEL_PATH}")
-print(f"Preprocess File: {PREPROCESSOR_FILE}")
+print(f"Preprocessor file: {PREPROCESSOR_FILE}")
 print(f"Architecture File: {ARCHITECTURE_FILE}")
 print(f"Weights File: {WEIGHTS_FILE}")
 
@@ -40,6 +39,7 @@ class PredictionPipeline(object):
         features = self.preprocessor.transform_texts(text)
         pred = self.model.predict(features)
         return pred
+
 
 
 if __name__ == "__main__":
