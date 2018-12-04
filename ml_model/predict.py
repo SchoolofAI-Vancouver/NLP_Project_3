@@ -4,8 +4,9 @@
 
 
 # modules
-import os#, sys
-from datetime import datetime
+import os
+import sys
+
 
 # add current directory to sys.path
 # needed for Flask app to work
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     logger.info("Script Started")
     logger.info("Loading model...")
     ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, 
-                                            ARCHITECTURE_FILE,
+                                            ARCHITECTURE_FILE, 
                                             WEIGHTS_FILE))
     logger.info("Completed loading model!")
 
