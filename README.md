@@ -65,21 +65,6 @@ If you are struggling with implementing some of the concepts discussed at the me
 
 Alternatively, ask for assistance on Slack. That's what this community is all about :)
 
-## Code Challenge
-
-**Due Date:** Sunday, 2 December 2018 (PT)
-
-**Challenge:** Build a classification model on the Toxic Comment Classification Challenge [data](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data). You are free to think outside the box here. It does not have to be a binary classifier. Use the techniques discussed in the meetup as a starting point.
-
-**Everyone is encouraged to participate!** The goal of creating models is to have something to deploy as part of a web app (which will be discussed at the next meetup).
-
-The winning solution should ideally contain:
-
-* a well-documented EDA
-
-* machine learning techniques that are sensible
-
-To submit, post your submission's repository link on the `# code_challenge` Slack channel (on the Vancouver School of AI workspace) before the due date.
 
 ## Meetup Contributors
 
