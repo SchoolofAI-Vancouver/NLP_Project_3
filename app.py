@@ -20,14 +20,12 @@ import tensorflow as tf
 from flask import Flask, jsonify, request, render_template, flash
 from wtforms import Form, TextField, TextAreaField, validators, SubmitField
 
-
 # add directory
 current_dir = os.path.dirname(os.path.realpath(__file__))
-#parent_dir = os.path.dirname(current_dir)
+parent_dir = os.path.dirname(current_dir)
 
-print(f"Current Directory: {current_dir}")
-sys.path.append(current_dir)
-
+print(current_dir, parent_dir)
+sys.path.append(parent_dir)
 
 # custom models
 from ml_model.predict import *
@@ -41,7 +39,6 @@ ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE,
 
 global graph
 graph = tf.get_default_graph()
-
 
 app = Flask(__name__)
 
