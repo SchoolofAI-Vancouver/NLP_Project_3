@@ -5,7 +5,6 @@
 
 # modules
 import os, sys
-from datetime import datetime
 
 # add current directory to sys.path
 # needed for Flask app to work
