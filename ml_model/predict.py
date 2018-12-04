@@ -5,12 +5,12 @@
 
 # modules
 import os
-# import sys
+import sys
 
 # add current directory to sys.path
 # needed for Flask app to work
-#current_dir = os.path.dirname(os.path.realpath(__file__))
-#sys.path.append(current_dir)
+current_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(current_dir)
 
 # custom modules
 from train_classifier import Preprocess  # need to import the Preprocess class as reference for unpickling
