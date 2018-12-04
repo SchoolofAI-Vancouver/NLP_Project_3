@@ -4,8 +4,8 @@
 
 
 # modules
-import os, sys
-from datetime import datetime
+import os
+import sys
 
 # add current directory to sys.path
 # needed for Flask app to work
@@ -22,6 +22,12 @@ PREPROCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
 ARCHITECTURE_FILE = os.path.join(MODEL_PATH, 'gru_architecture.json')
 WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
 
+print(f"Root Directory: {ROOT_DIR}")
+print(f"Model Path: {MODEL_PATH}")
+print(f"Preprocessor file: {PREPROCESSOR_FILE}")
+print(f"Architecture File: {ARCHITECTURE_FILE}")
+print(f"Weights File: {WEIGHTS_FILE}")
+
 
 class PredictionPipeline(object):
 
@@ -33,6 +39,7 @@ class PredictionPipeline(object):
         features = self.preprocessor.transform_texts(text)
         pred = self.model.predict(features)
         return pred
+
 
 
 if __name__ == "__main__":
