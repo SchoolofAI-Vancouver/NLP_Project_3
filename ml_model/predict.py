@@ -42,7 +42,6 @@ if __name__ == "__main__":
     logger.info("Loading model...")
     ppl = PredictionPipeline(*load_pipeline(PREPROCESSOR_FILE, 
                                             ARCHITECTURE_FILE, 
-
                                             WEIGHTS_FILE))
     logger.info("Completed loading model!")
 
