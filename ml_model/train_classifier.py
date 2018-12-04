@@ -153,6 +153,7 @@ if __name__ == "__main__":
 
     PRERPOCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
     logger.info(f"Saving the text transformer: {PRERPOCESSOR_FILE}")
+
     with open(PRERPOCESSOR_FILE, 'wb') as file:
         pickle.dump(preprocessor, file)
     del preprocessor
@@ -179,4 +180,5 @@ if __name__ == "__main__":
 
     WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
     logger.info(f"Saving the architecture: {WEIGHTS_FILE}")
+
     model.save_weights(WEIGHTS_FILE)
