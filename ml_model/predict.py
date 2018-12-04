@@ -9,15 +9,15 @@ import sys
 
 # add current directory to sys.path
 # needed for Flask app to work
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(dir_path)
+#current_dir = os.path.dirname(os.path.realpath(__file__))
+#sys.path.append(current_dir)
 
 # custom modules
 from utils import get_root, load_pipeline, get_logger
 
 
-ROOT = get_root()
-MODEL_PATH = os.path.join(ROOT, 'assets', 'model')
+ROOT_DIR = get_root()
+MODEL_PATH = os.path.join(ROOT_DIR, 'assets', 'model')
 PREPROCESSOR_FILE = os.path.join(MODEL_PATH, 'preprocessor.pkl')
 ARCHITECTURE_FILE = os.path.join(MODEL_PATH, 'gru_architecture.json')
 WEIGHTS_FILE = os.path.join(MODEL_PATH, 'gru_weights.h5')
