@@ -15,6 +15,14 @@ The meetups serve as guidance. The goal is for all attendees to build a good mac
 All code is written in Python. Please use [this guide](http://nbviewer.jupyter.org/github/johannesgiorgis/school_of_ai_vancouver/blob/master/intro_to_data_science_tools/01_introduction_to_conda_and_jupyter_notebooks.ipynb) to get Python and Jupyter Notebook up and running.
 
 ## Project Setup
+### Dependencies
+
+- **Python: 3.6**
+- Flask: 1.0.2
+- Keras: 2.2.4
+- pandas: 0.23.4
+- numpy: 1.15.4
+- sklearn: 0.20.1
 
 ### Training 
 
