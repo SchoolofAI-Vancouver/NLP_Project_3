@@ -15,6 +15,13 @@ The meetups serve as guidance. The goal is for all attendees to build a good mac
 All code is written in Python. Please use [this guide](http://nbviewer.jupyter.org/github/johannesgiorgis/school_of_ai_vancouver/blob/master/intro_to_data_science_tools/01_introduction_to_conda_and_jupyter_notebooks.ipynb) to get Python and Jupyter Notebook up and running.
 
 ## Project Setup
+
+This project contains a Flask Web App and Keras NLP model files trained to identify levels of toxicity in comments.
+
+It is deployed on Heroku [Heroku](https://toxic-comments-classifier.herokuapp.com/).
+
+The Deployment instructions below will help you in deploying it as your own Web App on Heroku.
+
 ### Dependencies
 
 - **Python: 3.6**
@@ -58,7 +65,17 @@ python ml_model/predict.py
 ```
 
 ### Deployment
-TODO 
+
+1. Create a [Heroku](https://www.heroku.com/) account if you don't already have one.
+2. Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
+3. Fork this Github repo.
+4. Clone the forked repo to your local machine.
+5. Navigate to your cloned repo directory.
+6. Create your Heroku App via ```heroku create <app-name>```
+7. Deploy your App via ```git push heroku master```
+8. Run ```heroku open``` to open your newly deployed web app on your Web Browser.
+
+
 
 ## Meetup Content
 
@@ -72,6 +89,11 @@ The project uses data from Kaggle's [Toxic Comment Classification Challenge](htt
 If you are struggling with implementing some of the concepts discussed at the meetup, check out [the slides notebook](https://github.com/SchoolofAI-Vancouver/NLP_Project_2/blob/master/src/slides.ipynb) as guidance. There are also many [kernels](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/kernels) specific to the toxic comment challenge that you can refer to get some inspiration or help.
 
 Alternatively, ask for assistance on Slack. That's what this community is all about :)
+
+**Other Resources**:
+
+- [Flaskr: Intro to Flask, Test-Driven Development (TDD), and JavaScript](https://github.com/mjhea0/flaskr-tdd#deployment)
+- [Flask Web Forms](https://pythonspot.com/flask-web-forms/)
 
 
 ## Meetup Contributors
